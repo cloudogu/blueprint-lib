@@ -2,11 +2,11 @@ package json
 
 import (
 	"encoding/json"
-	"github.com/stretchr/testify/require"
 	"reflect"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestTargetState_String(t *testing.T) {

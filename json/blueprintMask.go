@@ -4,7 +4,7 @@ type BlueprintMaskApi string
 
 const (
 	// BlueprintMaskAPIV1 contains the API version number of the Blueprint Mask mechanism.
-	BlueprintMaskAPIV1 BlueprintApi = "v1"
+	BlueprintMaskAPIV1 BlueprintMaskApi = "v1"
 )
 
 // GeneralBlueprintMask defines the minimum set to parse the blueprint mask API version string in order to select the
