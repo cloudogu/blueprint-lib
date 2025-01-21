@@ -1,8 +1,4 @@
-package v1
-
-import (
-	"github.com/cloudogu/blueprint-lib/bpcore"
-)
+package json
 
 // BlueprintV1 describes an abstraction of Cloudogu EcoSystem (CES) parts that should be absent or present within one or
 // more CES instances. When the same Blueprint is applied to two different CES instances it is required to leave two
@@ -11,7 +7,7 @@ import (
 // In general additions without changing the version are fine, as long as they don't change semantics. Removal or
 // renaming are breaking changes and require a new blueprint API version.
 type BlueprintV1 struct {
-	bpcore.GeneralBlueprint
+	GeneralBlueprint
 	// ID is the unique name of the set over all parts. This blueprint ID should be used to distinguish from similar
 	// blueprints between humans in an easy way. Must not be empty.
 	ID string `json:"blueprintId"`
@@ -46,7 +42,7 @@ type TargetDogu struct {
 	// otherwise it is optional and is not going to be interpreted.
 	Version string `json:"version"`
 	// TargetState defines a state of installation of this dogu. Optional field, but defaults to "TargetStatePresent"
-	TargetState bpcore.TargetState `json:"targetState"`
+	TargetState TargetState `json:"targetState"`
 }
 
 // TargetPackage an operating system package, its version, and the installation state in which it is supposed to be
@@ -58,5 +54,5 @@ type TargetPackage struct {
 	// "present"; otherwise it is optional and is not going to be interpreted.
 	Version string `json:"version"`
 	// TargetState defines a state of installation of this package. Optional field, but defaults to "TargetStatePresent"
-	TargetState bpcore.TargetState `json:"targetState"`
+	TargetState TargetState `json:"targetState"`
 }

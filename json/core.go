@@ -1,4 +1,4 @@
-package bpcore
+package json
 
 import (
 	"bytes"

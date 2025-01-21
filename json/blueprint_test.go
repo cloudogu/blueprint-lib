@@ -1,8 +1,7 @@
-package v1
+package json
 
 import (
 	"encoding/json"
-	"github.com/cloudogu/blueprint-lib/bpcore"
 	"github.com/stretchr/testify/require"
 	"reflect"
 	"testing"
@@ -13,17 +12,17 @@ import (
 func TestTargetState_String(t *testing.T) {
 	tests := []struct {
 		name  string
-		state bpcore.TargetState
+		state TargetState
 		want  string
 	}{
 		{
 			"String() map enum to string",
-			bpcore.TargetStatePresent,
+			TargetStatePresent,
 			"present",
 		},
 		{
 			"String() map enum to string",
-			bpcore.TargetStateAbsent,
+			TargetStateAbsent,
 			"absent",
 		},
 	}
@@ -39,19 +38,19 @@ func TestTargetState_String(t *testing.T) {
 func TestTargetState_MarshalJSON(t *testing.T) {
 	tests := []struct {
 		name    string
-		state   bpcore.TargetState
+		state   TargetState
 		want    []byte
 		wantErr bool
 	}{
 		{
 			"MarshalJSON to bytes",
-			bpcore.TargetStatePresent,
+			TargetStatePresent,
 			[]byte(`"present"`),
 			false,
 		},
 		{
 			"MarshalJSON to bytes",
-			bpcore.TargetStateAbsent,
+			TargetStateAbsent,
 			[]byte(`"absent"`),
 			false,
 		},
@@ -72,35 +71,35 @@ func TestTargetState_MarshalJSON(t *testing.T) {
 
 func TestTargetState_UnmarshalJSON_secondValue(t *testing.T) {
 	jsonBlob := []byte(`"absent"`)
-	var sut bpcore.TargetState
+	var sut TargetState
 
 	err := json.Unmarshal(jsonBlob, &sut)
 
 	require.NoError(t, err)
-	assert.EqualValues(t, bpcore.TargetStateAbsent, sut)
+	assert.EqualValues(t, TargetStateAbsent, sut)
 }
 
 func TestTargetState_UnmarshalJSON_firstValue(t *testing.T) {
 	jsonBlob := []byte(`"present"`)
-	var sut bpcore.TargetState
+	var sut TargetState
 	err := json.Unmarshal(jsonBlob, &sut)
 
 	require.NoError(t, err)
-	assert.EqualValues(t, bpcore.TargetStatePresent, sut)
+	assert.EqualValues(t, TargetStatePresent, sut)
 }
 
 func TestTargetState_UnmarshalJSON_unknownValueParsesToFirstState(t *testing.T) {
 	jsonBlob := []byte(`"test"`)
-	var sut bpcore.TargetState
+	var sut TargetState
 	err := json.Unmarshal(jsonBlob, &sut)
 
 	require.NoError(t, err)
-	assert.EqualValues(t, bpcore.TargetStatePresent, sut)
+	assert.EqualValues(t, TargetStatePresent, sut)
 }
 
 func TestTargetState_UnmarshalJSON_error(t *testing.T) {
 	jsonBlob := []byte("test")
-	var sut bpcore.TargetState
+	var sut TargetState
 	err := json.Unmarshal(jsonBlob, &sut)
 
 	assert.Error(t, err)
