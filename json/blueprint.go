@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/pkg/errors"
 )
 
 // BlueprintApi is a string that contains a Blueprint API version identifier.
@@ -137,4 +138,15 @@ type TargetPackage struct {
 	Version string `json:"version"`
 	// TargetState defines a state of installation of this package. Optional field, but defaults to "TargetStatePresent"
 	TargetState TargetState `json:"targetState"`
+}
+
+// ParseBlueprint parses a given byte slice to a GeneralBlueprint so the blueprint version can be determined.
+func ParseBlueprint(rawBlueprint []byte) (GeneralBlueprint, error) {
+	var preparsedBlueprint GeneralBlueprint
+	err := json.Unmarshal(rawBlueprint, &preparsedBlueprint)
+	if err != nil {
+		return GeneralBlueprint{}, errors.Wrap(err, "could not parse blueprint. Please check the blueprint for validity")
+	}
+
+	return preparsedBlueprint, nil
 }
